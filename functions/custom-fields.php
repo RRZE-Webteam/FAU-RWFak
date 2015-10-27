@@ -143,9 +143,9 @@ function fau_do_metabox_post_teaser( $object, $box ) {
 	echo "<p>\n";
 	 echo __('Bitte beachten: Damit ein Artikel auf der Startseite angezeigt werden soll, muss er das folgende Schlagwort erhalten: ','fau');
 	   echo '<b>'.$options['start_prefix_tag_newscontent'].'</b> - '.__('Dies gefolgt von einer Nummer (1-3) für die Reihenfolge.','fau'); 
-	   if (isset($options['slider-catid'])) {
+	   if (isset($options['slider-catid']) && $options['slider-catid']>0) {
 		$category = get_category($options['slider-catid']);	   
-		if ($category) {
+		if (isset($category->name)) {
 		    echo ' '.__('Damit ein Artikel in der Bühne erscheint, muss er folgender Kategorie angehören: ','fau');
 		    echo '<b>'.$category->name.'</b>';
 		}
@@ -1246,11 +1246,32 @@ function fau_save_metabox_page_sidebar( $post_id, $post ) {
 		    update_post_meta( $post_id, $name, $newid );			    
 		 
 	    }
-	
 
-	
-	
-	
-	
 }
+
+/*
+ *  Ersetzt das wpLink-Skript durch ein benutzerdefiniertes Skript.
+ */
+add_action('admin_enqueue_scripts', function () {
+    $suffix = defined('WP_DEBUG') && WP_DEBUG ? '' : '.min';
+
+    // Erst deaktivieren wir das Standard-Wordpress-Skript
+    wp_deregister_script('wplink');
+
+    // Dann ersetzen wir es durch unser benutzerdefiniertes wpLink-Skript
+    wp_enqueue_script('rrze-wplink', get_template_directory_uri() . "/js/rrze-wplink$suffix.js", array('jquery'), FALSE, TRUE);
+
+    // Lokalisierung des Skripts
+    $localized = array(
+            'title' => __('Link einfügen/ändern', 'fau'),
+            'update' => __('Aktualisieren', 'fau'),
+            'save' => __('Link hinzufügen', 'fau'),
+            'noTitle' => __('(kein Titel)', 'fau'),
+            'noMatchesFound' => __('Keine Ergebnisse gefunden.', 'fau')
+    );
+
+    wp_localize_script('rrze-wplink', 'wpLinkL10n', $localized);
+    
+}, 999);
+
 

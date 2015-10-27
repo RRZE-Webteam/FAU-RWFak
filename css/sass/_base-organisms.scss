@@ -3,6 +3,49 @@
 	display: block;
 	float: left;
 	margin: 20px 0 10px 0;
+	max-height: 85px;
+	max-width: 300px;
+	min-width: 120px;
+	text-align: right;
+	
+	h1 {
+	    @include inline-block;
+	    font-size: 19px;
+	    line-height: 24px;
+	    font-weight: bold;
+	    color: $PalettonDunkler; // $colorPrimary;
+	    overflow: hidden;
+	    padding: 0 5px;
+	    vertical-align: text-bottom;
+	    text-align: left;
+	    
+	    a {
+		color: $PalettonDunkler; // $colorPrimary;
+		
+		 &:hover,
+		 &:focus {
+		    @include border-radius(4px);
+		    background-color: lighten($colorHover, 5%);
+		    color: white;
+		    display: block;
+
+		}	
+		
+	    } 		
+	}
+	img {
+	//    max-height: 85px;
+	    max-width: 300px;
+	    height: 65px;
+	    width: auto;
+	    padding-right: 10px;
+	    
+	     &:hover,
+		 &:focus {
+		 background-color: white;
+		 }
+		
+	}
 }
 
 /* Primary Navigation */
@@ -13,7 +56,7 @@
 	.nav-flyout {
 		display: none;
 		position: absolute;
-		z-index: 20;
+		z-index: 30;
 		top: 139px;
 		left: 0;
 		right: 0;
@@ -48,14 +91,14 @@
 				@include no-list;
 				float: none;
 				background: none; 
-				
+
 				a {
 					float: none;
 					margin: 0 !important;
 					padding: 0;
 					font-weight: normal;
 					font-size: 15px;
-					background: transparent url('../img/list-arrow.png') no-repeat left center !important;
+					background: transparent url('../img/list-arrow.png') no-repeat left center;
 					display: block;
 					padding: 7px 20px 7px 20px;
 					color: $colorMainMenu;
@@ -65,7 +108,7 @@
 
 				a:hover, a:focus {
 					text-decoration: none;
-					background-color: lighten($colorHover, 5%) !important;
+					background-color: $colorHover;
 				}
 			}
 		}
@@ -73,8 +116,7 @@
 		.nav-flyout {
 			a.button-portal {
 				@include inline-block;
-				background: $colorButtonBackgroundHover; // $colorHover;
-				color: $colorButton;
+				background: $colorHover;
 				padding: 13px 20px;
 				font-size: 18px;
 				line-height: 18px;
@@ -109,7 +151,7 @@
 		min-height: 40px;
 
 		p {
-			color: $colorMainMenu;
+			color: #fff;
 			font-size: 18px;
 			line-height: 24px;
 			font-style: italic;
@@ -153,7 +195,7 @@
 	-moz-border-radius-bottomright: 0;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
-	color: $colorMainMenu;
+    	color: $colorMainMenu;
 }
 
 .no-js #nav li.level1:hover a, 
@@ -161,7 +203,7 @@
 .no-js #nav li.level1:focus a, 
 #nav li.focus a {
 	background-color: $colorPrimary;
-	color: $colorLightest;	
+	color: $colorMainMenu;
 }
 
 .no-js #nav li.level1 a:hover, 
@@ -176,8 +218,9 @@
 .no-js #nav li.has-sub:hover a, 
 .no-js #nav li.has-sub:focus a, 
 #nav li.has-sub.focus a {
-	background-position: right -28px;
+	// background-position: right -28px;
 	color: $colorMainMenu;
+
 }
 
 
@@ -298,6 +341,9 @@ body.admin-bar.nav-fixed {
 #meta-nav {
 	@include no-list;
 	padding: 0;
+	max-width: 650px;
+	overflow: hidden;
+	height: 42px;
 	
 	li {
 		@include no-list;
@@ -306,6 +352,11 @@ body.admin-bar.nav-fixed {
 		background: none;
 		position: relative;
 		
+		img {
+		    vertical-align: sub;		  
+		    padding: 0;
+		    margin: 0 2px;
+		}    
 		a {
 			@include inline-block;
 			padding: 10px 0;
@@ -339,8 +390,8 @@ body.admin-bar.nav-fixed {
 		}
 	}
 	li.fauhome {
-	    background: $colorMetaFAUHomeBackground;
-	    padding-right: 10px;
+	    padding-right: 5px;
+	    margin-right: 10px;	    
 	}
 	li.fauhome:before {
 	    @extend .fa;
@@ -348,6 +399,29 @@ body.admin-bar.nav-fixed {
 	    margin-left: 5px;
 	    margin-right: 5px;
 	}
+	li.facultyhome {
+	    padding-right: 5px;
+	    padding-left: 5px;
+	    margin-right: 10px;
+	    margin-left: -15px;
+	   
+	}
+
+	
+	
+	li.fauhome, li.facultyhome {
+	    @include transition(background, 0.2s ease-out);
+	}
+	li.fauhome:hover, li.fauhome:focus, 
+	li.facultyhome:hover, li.facultyhome:focus {
+	    background: $colorMetaFAUHomeBackground;
+	    @include transition(background, 0.1s);
+	}
+//	li.facultyhome:hover, li.facultyhome:focus {
+//	    background: $colorMedFak;
+//	    a { color: white; }
+//	}
+	   
 	
 	
 	ul.sub-menu {
@@ -390,8 +464,8 @@ body.admin-bar.nav-fixed {
 	@include placeholder(#fff);
 	margin-top: 20px;
 	padding-bottom: 10px;
-	position: relative;
-	@include radial-gradient-image($colorPrimaryHero, lighten($colorPrimaryHero, 15%), url($siegelurl) no-repeat 95% 155%);
+	position: relative; 
+	@include radial-gradient-image($colorPrimaryHero, $colorPrimaryHeroLight, url($siegelurl) no-repeat 95% 155%);
 	@include transition(1.0s, all);
 	
 	h1, h2, h3, h4, p {
@@ -403,6 +477,24 @@ body.admin-bar.nav-fixed {
 	h1 {
 	    position: relative;
 	    z-index: 10;
+	    padding-top: 0px;
+	}
+		
+	h3.breadcrumb_sitetitle {
+	    font-size: 14px;
+	    font-weight: normal;
+	    line-height: 18px;
+	    margin-bottom: -5px;
+	    color: $colorPrimaryHeroLight;
+	}
+	.infobar {
+	    padding-top: 15px;
+	}
+	p.description {
+	    font-weight: normal;
+	    color: #fff;
+	    font-size: 18px;
+	    line-height: 26px;
 	}
 	
 	a {
@@ -414,6 +506,7 @@ body.admin-bar.nav-fixed {
 	}
 	
 	li {
+    		@include no-list;
 		font-size: 13px;
 		padding-left: 20px;
 		padding-bottom: 5px;
@@ -421,13 +514,21 @@ body.admin-bar.nav-fixed {
 	}
 	
 	&.hero-small {
-		@include radial-gradient-image($colorPrimaryHero, lighten($colorPrimaryHero, 15%), url($siegelurl) no-repeat 95% 20%);
+		@include radial-gradient-image($colorPrimaryHero, $colorPrimaryHeroLight, url($siegelurl) no-repeat 95% 20%);
 		
 		h1 {
 			padding: 30px 0 10px 0;
 		}
 	}
-	
+	&.hero-banner {
+	    @include radial-gradient-image($colorPrimaryHero, $colorPrimaryHeroLight, url($siegelurl) no-repeat 95% 20%);
+	    height: 142px;
+	    margin-bottom: 30px;
+	    margin-top: 20px;
+	    padding: 0;
+	    
+	    
+	}
 	.container {
 		position: relative;
 	}
@@ -437,7 +538,7 @@ body.admin-bar.nav-fixed {
 		bottom: 23px;
 		right: 100px;
 		text-align: right;
-		color: lighten($colorPrimary, 15%);
+		color: $colorPrimaryHeroLight; 
 		font-size: 60px;
 		line-height: 50px;
 	}
@@ -501,20 +602,108 @@ body.admin-bar.nav-fixed {
 		position: absolute;
 		left: 300px;
 		right: 300px;
-		bottom: 0;
-		//text-indent: -9999em;
+		bottom: -30;
 		display: none;
-		height: 25px;
+		height: 30px;
 		text-align: center;
 		text-decoration: none;
+		
+		background: $colorPrimary;
+		color: #fff;
+		@include border-radius(4px);
+		
 		@extend .fa;
-		@extend .fa-3x;
+		@extend .fa-2x;
 		@extend .fa-angle-down;
 		
 		&:hover, &:focus {
 			text-decoration: none;
-		}
+			color: #fff;
+			background: $colorHover;
+		}		
 	}
+	
+	.banner {
+	    position: relative;
+	    top: -20px;
+	    bottom: -20px;
+	    margin: 0 auto;
+	    height: 182px;
+	    background: $colorPrimary;
+	    max-width: 1260px;
+	    overflow: hidden;
+	    @include box-shadow(0 10px 20px rgba(0,0,0,0.5));
+	    
+	    .introimg {
+		position: relative;
+		height: 182px;
+
+		img {
+			// height: 182px;
+			height: auto;
+			min-height: 182px;
+			max-width: 1260px;
+			width: 1260px;
+			left: 50%;
+			margin-left: -630px;
+			position: relative;
+			z-index: 5;
+			top: 0;
+		}
+		p.credits {
+		    background: $colorCopyrightBackground;
+		    color: $colorCopyright;
+		    font-size: 14px;
+		    line-height: 18px;
+		    position: absolute;
+		    bottom: 0;
+		    right: 0;
+		    z-index: 6;
+		    margin: 0;
+		    padding: 1px 4px;
+		}
+	    }
+	    .banner-text {
+		position: absolute;
+		top: 0px;
+		left: 0;
+		right: 0;
+		z-index: 10;
+		width: 100%;
+		padding-top: 10px;
+		
+		.infobar {
+		//   padding-top: 20px;
+		}
+		
+		h1, h2 {
+			@include inline-block;
+			color: #fff;
+			background: $colorPrimary;
+			margin: 0;
+			padding: 5px 7px;
+			position: relative;
+			z-index: 10;
+			max-width: 600px;
+			
+		}
+		
+		p {
+			@include inline-block;
+			color: #fff;
+			background: $colorPrimary;
+			padding: 5px 7px;
+			margin: 0;
+			font-size: 18px;
+			max-width: 600px;
+		}
+		
+		
+		
+	    }
+	    
+	}
+	
 }
 
 
@@ -524,7 +713,7 @@ body.admin-bar.nav-fixed {
 	top: -20px;
 	margin: 0 auto -15px auto;
 	height: 350px;
-	background: #fff;
+	background: $colorPrimary;
 	max-width: 1260px;
 	overflow: hidden;
 	@include box-shadow(0 10px 20px rgba(0,0,0,0.5));
@@ -560,6 +749,18 @@ body.admin-bar.nav-fixed {
 			font-size: 18px;
 			max-width: 600px;
 		}
+		p.credits {
+		    background: $colorCopyrightBackground;
+		    color: $colorCopyright;
+		    font-size: 14px;
+		    line-height: 18px;
+		    position: absolute;
+		    bottom: 0;
+		    right: 0;
+		    z-index: 6;
+		    margin: 0;
+		    padding: 1px 4px;
+		}
 		
 	}
 	
@@ -584,6 +785,14 @@ body.admin-bar.nav-fixed {
 	img {
 		@include box-shadow(0 1px 2px rgba(0,0,0,0.3));
 		max-width: 100%;
+				
+		&.shadow {
+		    @include box-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
+		}
+		&.thickborder {
+		    border: 1px solid black;
+		    @include border-radius(2px);
+		}
 	}
 	
 	.logos-menu .logo-item img {
@@ -691,7 +900,8 @@ body.admin-bar.nav-fixed {
 		padding-right: 15px; 
 
 		&:hover, &:focus {
-			background-color: $colorSubNavBackgroundHover;
+			background-color: $colorSubNavCurrentBackground;
+			color: $colorSubNavCurrent;
 		}
 	}
 	
@@ -783,7 +993,7 @@ body.admin-bar.nav-fixed {
 
 /* Social */
 #social {
-	background: $colorLightest;
+	background: $colorSocialBackground;
 	padding: 20px 0;
 	margin-bottom: -30px;
 	margin-top: 30px;
@@ -794,7 +1004,13 @@ body.admin-bar.nav-fixed {
 		color: $colorSocial;
 		padding-top: 0;
 	}
-	
+	a {
+	    color: $colorSocial;	    
+	    &:hover, &:focus {
+		    text-decoration: underline;
+		    color: $colorPrimary;
+	    }
+	}
 	ul.social {
 		@include no-list;
 		margin: 0 0 10px 0;
@@ -825,7 +1041,7 @@ body.admin-bar.nav-fixed {
 			//	@extend .fa;
 			//	@extend .fa-lg;
 				background: $colorSocial;
-				color: $colorLightest;
+				color: $colorSocialBackground;
 				height: 21px;
 				width: 24px;
 				padding-top: 3px;
@@ -864,6 +1080,8 @@ body.admin-bar.nav-fixed {
 		li.social-flickr a:before { @extend .jv-flickr; }
 		li.social-xing a:before { @extend .jv-xing; }
 		li.social-pinterest a:before { @extend .fa-pinterest-p; @extend .fa; @extend .fa-lg; line-height: 1.0em;}
+		li.social-instagram a:before { @extend .fa; @extend .fa-instagram; line-height: 1.0em;}
+
 		li.social-feed a:before { @extend .jv-rss; }
 		li.social-delicious a:before { @extend .jv-delicious; }
 		li.social-skype a:before { @extend .jv-skype; }

@@ -139,7 +139,7 @@
 /* Subpages / Portal Menu */
 .subpages-menu {
 	@include no-list;
-	margin: 0 0 20px -20px;
+	margin: 20px 0 20px -20px;
 	
 	li {
 		@include no-list;
@@ -214,13 +214,19 @@
 .page-template-page-subnav {
     #content {
 	.span8 {
-	    img.alignleft, img.alignright, img.size-full {
-		    // Sidebar Inline Bilder haben Probleme mit dem Standard Floating	    
-		    max-width: 350px;
-		    height: auto;
+	    img {		
+		&.alignleft, 
+		&.alignright, 
+		&.size-full {
 		    vertical-align: top;
+		    overflow: hide;
+	        }
+		&.size-full {
+		    clear: both;
+		}
 	    }
-	    div.alignleft, img.alignleft {
+	    div.alignleft, 
+	    img.alignleft {
 		clear: none;
 		
 	    }
@@ -229,8 +235,9 @@
 }
 
 /* Breadcrumb */
+
 .breadcrumbs {
-	color: $colorMainMenu;
+	color: #fff;
 	padding: 10px 0;
 	position: relative;
 	z-index: 10;
@@ -328,7 +335,7 @@
 		padding: 5px 0;
 		font-size: 13px;
 		line-height: 18px;
-		color: $colorPrimary;
+		color: $colorText;
 	}
 	
 	h4 {
@@ -372,11 +379,36 @@
 				border-bottom: 1px solid #fff;
 				padding-left: 15px;
 				padding-right: 15px;
-				color: $colorLightestContrast;
+				
 				&:hover, &:focus {
 					background-color: darken($colorLightest, 3%);
 				}
 			}
+			&.techfak a {
+			    background-color: $colorTechFak;
+			    color: #fff;
+			}
+			&.rwfak a {
+			    background-color:  $colorRwFak;
+			    color: #fff;
+			}
+			&.medfak a {
+			    background-color:  $colorMedFak;
+			    color: #fff;
+			}
+			&.natfak a {
+			    background-color:  $colorNatFak;
+			    color: #fff;
+			}
+			&.philfak a {
+			    background-color:  $colorPhilFak;
+			    color: #fff;
+			}
+			&.fau a, &.default a {
+			    background-color:  $colorDefault;
+			    color: #fff;
+			}
+			
 		}
 	}
 }
@@ -415,18 +447,28 @@
 		padding-top: 5px;
 		font-weight: bold;
 		font-size: 15px;
+		
+		a {
+		    color: $colorText;
+		    text-decoration: underline;
+		}
 	}
 	
 	h4 {
 		padding-top: 0;
 		font-weight: normal;
+		a {
+		    color: $colorText;
+		    text-decoration: underline;
+		}
 	}
 }
 
 .content-person {
-	border: 1px solid $colorLightest;
+	border: 1px solid $colorStandardHellgrau;
 	margin: 10px 0;
 	padding: 10px;
+	overflow: hidden;
 	
 	@media(max-width: $breakMD) {
 		margin: 10px 15px;
@@ -1039,7 +1081,7 @@ ul.person-info {
 			line-height: 125px;
 			vertical-align: middle;
 			text-align: center;
-			border: 1px solid $colorLightest;
+			border: 1px solid $colorStandardHellgrau;
 			margin: 0 15px 15px 0;
 			
 			img {
@@ -1211,7 +1253,7 @@ ul.tagcloud {
 		margin-top: 22px;
 	}
 	ul.person-info li {
-	    color: $colorPrimary;
+	    color: $colorText;
 
 	}
 	
@@ -1248,8 +1290,8 @@ ul.tagcloud {
 
 			.accordion-toggle {
 				border-left: 10px solid $colorPrimary;
-				background: $colorLightest;
-				color: $colorLightestContrast; // $colorPrimary;
+				background: $colorContentBorders;
+				color: $colorDefault; // $colorPrimary;
 				@include border-radius(4px);
 				text-decoration: none;
 				font-size: 16px;
@@ -1284,11 +1326,12 @@ ul.tagcloud {
 		
 		.accordion-body {
 			display: none;
-			
+			overflow: hidden;
+			    
 			.accordion-inner {
 				@extend .clearfix;
 				border: none;
-				background: lighten($colorLightest, 4%);
+				background: $colorContentRegions;
 				padding: 15px 20px;
 			}
 		}
@@ -1320,9 +1363,9 @@ ul.tagcloud {
 	.content-person {
 	    padding: 5px 0 10px 0;
 	    border: none;
-	    h1, h2, h3 {
-		color: $colorText;
-	    }
+	}
+	h1, h2, h3, h4, h5, h6 {
+	    color: $colorText;
 	}
 }
 
@@ -1331,14 +1374,14 @@ ul.tagcloud {
 .accordion .accordion .accordion .accordion .accordion-inner,
 .accordion .accordion .accordion .accordion .accordion .accordion .accordion-inner,
 .accordion .accordion .accordion .accordion .accordion .accordion .accordion .accordion .accordion-inner {
-	background: lighten($colorLightest, 5%);
+	background: $colorContentRegions;
 }
 
 .accordion .accordion .accordion .accordion-inner,
 .accordion .accordion .accordion .accordion .accordion .accordion-inner,
 .accordion .accordion .accordion .accordion .accordion .accordion .accordion .accordion-inner,
 .accordion .accordion .accordion .accordion .accordion .accordion .accordion .accordion .accordion .accordion-inner {
-	background: lighten($colorLightest, 6%);
+	background: $colorContentRegions;
 }
 
 .accordion .accordion .accordion-heading .accordion-toggle {
@@ -1352,8 +1395,8 @@ ul.tagcloud {
     
     header {
 	border-left: 10px solid $colorPrimary;
-	background: $colorLightest;
-	color: $colorLightestContrast; // $colorPrimary;
+	background: $colorContentBorders;
+	color: $colorDefault; // $colorPrimary;
 	@include border-radius(4px);
 	text-decoration: none;
 	font-size: 16px;
@@ -1361,7 +1404,7 @@ ul.tagcloud {
 	position: relative;
 	
 	h2 {
-	    color: $colorLightestContrast; // $colorPrimary;
+	    color: $colorDefault; // $colorPrimary;
 	    padding: 0px;
 	}
 	&.philfak {
@@ -1395,7 +1438,7 @@ ul.tagcloud {
     
     .body {
 	border: none;
-	background: lighten($colorLightest, 4%);
+	background: $colorContentRegions;
 	padding: 15px 20px;
     } 
 }

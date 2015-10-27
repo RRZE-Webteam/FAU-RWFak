@@ -1,10 +1,7 @@
 (function() {
 
     tinymce.PluginManager.add('faurteshortcodes', function( editor )
-    {
-		
-		
-		
+    {	
 		editor.addMenuItem('shortcode_organigram', {
 			text: 'Organigramm einfügen',
 			context: 'tools',
@@ -29,22 +26,8 @@
 			}
 		});
                 
-                editor.addMenuItem('shortcode_univis', {
-                        text: 'UnivIS einfügen',
-                        context: 'tools',
-                        onclick: function() {
-                                editor.insertContent('[univis number=""]');
-                        }
-                });
-                
-                editor.addMenuItem('shortcode_karte', {
-                        text: 'Lageplan (FAU-Karte) einfügen',
-                        context: 'tools',
-                        onclick: function() {
-                                editor.insertContent('[faukarte url="" width="100%"]');
-                        }
-                });
-		
+             
+	/*	
 		editor.addMenuItem('shortcode_person', {
 			text: 'Person einfügen',
 			context: 'tools',
@@ -60,22 +43,10 @@
 				editor.insertContent('[persons category="" showlink="0" extended="0"]');
 			}
 		});
+*/		
 		
-		editor.addMenuItem('shortcode_synonym', {
-			text: 'Synonym einfügen',
-			context: 'tools',
-			onclick: function() {
-				editor.insertContent('[synonym slug=""]');
-			}
-		});
 		
-		editor.addMenuItem('shortcode_glossary', {
-			text: 'Glossar einfügen',
-			context: 'tools',
-			onclick: function() {
-				editor.insertContent('[glossary category=""]');
-			}
-		});
+		
 		
 
     });

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Startseite
+ * Template Name: Startseite Fakultät
  *
  * @package WordPress
  * @subpackage FAU
@@ -48,14 +48,19 @@ global $options;
 			    <?php 
 			    
 			    $sliderimage = '';
+			    $copyright = '';
 			   // $imageid = get_post_meta( $hero->ID, 'fauval_sliderid', true );
 			    $imageid = get_post_meta( $hero->ID, 'fauval_slider_image', true );
 			    if (isset($imageid) && ($imageid>0)) {
 				$sliderimage = wp_get_attachment_image_src($imageid, 'hero'); 
+				$imgdata = fau_get_image_attributs($imageid);
+				$copyright = trim(strip_tags( $imgdata['credits'] ));
 			    } else {
 				$post_thumbnail_id = get_post_thumbnail_id( $hero->ID ); 
 				if ($post_thumbnail_id) {
 				    $sliderimage = wp_get_attachment_image_src( $post_thumbnail_id, 'hero' );
+				    $imgdata = fau_get_image_attributs($post_thumbnail_id);
+				    $copyright = trim(strip_tags( $imgdata['credits'] ));
 				}
 			    }
 
@@ -65,6 +70,9 @@ global $options;
 				$slidersrc = '<img src="'.fau_esc_url($sliderimage[0]).'" width="'.$options['slider-image-width'].'" height="'.$options['slider-image-height'].'" alt="">';	
 			    }
 			    echo $slidersrc."\n"; 
+			    if (($options['advanced_display_hero_credits']==true) && (!empty($copyright))) {
+				echo '<p class="credits">'.$copyright."</p>";
+			    }
 			    ?>
 			    <div class="hero-slide-text">
 				<div class="container">
@@ -88,7 +96,12 @@ global $options;
 						<br><p><?php echo $abstract; ?></p>
 				</div>
 			    </div>
-		    <script type="text/javascript">
+		   
+		    </div>
+	    <?php endforeach; 
+              wp_reset_query();
+	      ?>
+		 <script type="text/javascript">
 			jQuery(document).ready(function($) {
 			$('#hero-slides').flexslider({
 				selector: '.hero-slide',
@@ -97,17 +110,20 @@ global $options;
 			});
 		    });
 		    </script>
-		    </div>
-	    <?php endforeach; 
-              wp_reset_query();
-	      ?>
-		
 		</div>
 	
 		<div class="container">
 			<div class="row">
-				<div class="span6">
-				    <h1><?php echo get_bloginfo( 'title' ) ?></h1>
+				<div role="presentation" class="span6 infobar">				    
+				    <?php 
+				   $header_image = get_header_image();
+				    if (!empty( $header_image ) ){	
+					echo "<h1>". get_bloginfo( 'title' ). "</h1>\n";
+				    }
+				    if (null !== get_bloginfo( 'description' )) {
+					 echo '<p class="description">'.get_bloginfo( 'description' )."</p>";
+				    }
+				    ?>
 				</div>
 				<div class="span3">
 					<?php if(has_nav_menu('quicklinks-3')) { ?>
@@ -126,11 +142,13 @@ global $options;
 					} ?>
 				</div>
 			</div>
-			<a href="#content" class="hero-jumplink-content"><?php _e('','fau'); ?></a>
+		    <?php if ($options['advanced_page_start_herojumplink']) { ?>
+			<a href="#content" class="hero-jumplink-content"></a>
+		    <?php } ?>
 		</div>
 	</section> <!-- /hero -->
 
-	<section id="content">
+	<div id="content">
 		<div class="container">
 			<?php 
 			    echo fau_get_ad('werbebanner_seitlich',false);
@@ -138,112 +156,78 @@ global $options;
 			
 			<div class="row">
 				<div class="span8">
+				    <main>
 					
 					<?php
 					
-						$number = 0;
-						$max = $options['start_max_newspertag'] || 3;
-						$maxall = $options['start_max_newscontent'] || 5;
-						
-						for($j = 1; $j <= 3; $j++) {
-							$i = 0;
-							$thistag = $options['start_prefix_tag_newscontent'].$j;    
-							$query = new WP_Query( 'tag='.$thistag );
-							
-							 while ($query->have_posts() && ($i<$max) ) { 
-							    $query->the_post(); 
-							    echo fau_display_news_teaser($post->ID);
-							    $i++;
-							    $number++;
-							    wp_reset_postdata();
-							}
-						}
-						if ($number==0) {
-						    $args = '';
-						    if (isset($options['start_link_news_cat'])) {
-							 $args = 'cat='.$options['start_link_news_cat'];	
-						    }
-						    if (isset($args)) {
-							$args .= '&';
-						    }
-						    
-						    $args .= 'post_type=post&has_password=0&posts_per_page='.$options['start_max_newscontent'];	
-						    $query = new WP_Query( $args );
-						    while ($query->have_posts() ) { 
-							$query->the_post(); 
-							echo fau_display_news_teaser($post->ID);
-							 wp_reset_postdata();
-						    }
-						}
-						
-			
-					?>
+					$number = 0;
+					$max = $options['start_max_newspertag'];
+					$maxall = $options['start_max_newscontent'];
+					$displayedposts = array();
+					for($j = 1; $j <= 3; $j++) {
+						$i = 0;
+						$thistag = $options['start_prefix_tag_newscontent'].$j;    
+						$query = new WP_Query( 'tag='.$thistag );
 
-					<?php
-						$category = get_the_category_by_ID($options['start_link_news_cat']);
-						if (($category) && ($options['start_link_news_show']==1)) {
-					?>
+						 while ($query->have_posts() && ($i<$max) && ($number<$maxall) ) { 
+						    $query->the_post(); 
+						    echo fau_display_news_teaser($post->ID);
+						    $i++;
+						    $number++;
+						    $displayedposts[] = $post->ID;
+						}
+						wp_reset_postdata();
+						wp_reset_query();
+
+					}
+					if (($number==0) || ($number < $maxall)) {
+
+					    if ($number < $maxall) {
+						$num = $maxall - $number;
+						if ($num <=0 ) {
+						    $num=1;
+						}
+						if (isset($options['start_link_news_cat'])) {
+						    $query = new WP_Query(  array( 'post__not_in' => $displayedposts, 'posts_per_page'  => $num, 'has_password' => false, 'post_type' => 'post', 'cat' => $options['start_link_news_cat']  ) );
+						} else {
+						    $query = new WP_Query(  array( 'post__not_in' => $displayedposts, 'posts_per_page'  => $num, 'has_password' => false, 'post_type' => 'post'  ) );							    
+						}
+					    } else {
+						 $args = '';
+						if (isset($options['start_link_news_cat'])) {
+						    $args = 'cat='.$options['start_link_news_cat'];	
+						}
+						if (isset($args)) {
+						    $args .= '&';
+						}
+
+						$args .= 'post_type=post&has_password=0&posts_per_page='.$options['start_max_newscontent'];	
+						$query = new WP_Query( $args );
+					    }
+					    while ($query->have_posts() ) { 
+						$query->the_post(); 
+						echo fau_display_news_teaser($post->ID);
+						 wp_reset_postdata();
+					    }
+					}
+
+					$category = get_the_category_by_ID($options['start_link_news_cat']);
+					if (($category) && ($options['start_link_news_show']==1)) { ?>
 					
 					<div class="news-more-links">
 						<a class="news-more" href="<?php echo get_category_link($options['start_link_news_cat']); ?>"><?php echo $options['start_link_news_linktitle']; ?></a>
 						<a class="news-rss" href="<?php echo get_category_feed_link($options['start_link_news_cat']); ?>">RSS</a>
 					</div>
 					<?php } ?>			    
-					
+				    </main>	
 				</div>
 				<div class="span4">
-					
-					<?php $topevent_posts = get_posts(array('tag' => $options['start_topevents_tag'], 'numberposts' => $options['start_topevents_max']));
-					 foreach($topevent_posts as $topevent): ?>
-						<div class="widget">
-							<?php 
-							$titel = get_post_meta( $topevent->ID, 'topevent_title', true );
-							if (strlen(trim($titel))<3) {
-							    $titel =  get_the_title($topevent->ID);
-							} 
-							$link = get_permalink($topevent->ID);
-							
-							?>
-							<h2 class="small"><a href="<?php echo $link; ?>"><?php echo $titel; ?></a></h2>
-							
-							<div class="row">
-							    <?php 
-							    
-								$imageid = get_post_meta( $topevent->ID, 'topevent_image', true );
-								$imagehtml = '';
-								if (isset($imageid) && ($imageid>0)) {
-								    $image = wp_get_attachment_image_src($imageid, 'topevent-thumb'); 					
-								    if (($image) && ($image[0])) {  
-									$imagehtml = '<img src="'.fau_esc_url($image[0]).'" width="'.$options['default_topevent_thumb_width'].'" height="'.$options['default_topevent_thumb_height'].'" alt="">';	
-								    }								    
-								} 
-								if (empty($imagehtml)) {
-								   $imagehtml = '<img src="'.fau_esc_url($options['default_topevent_thumb_src']).'" width="'.$options['default_topevent_thumb_width'].'" height="'.$options['default_topevent_thumb_height'].'" alt="">';			    
-								}
-								
-								
-								
-								
-							    if (isset($imagehtml)) { ?>
-								<div class="span2">
-									<?php echo '<a href="'.$link.'">'.$imagehtml.'</a>'; ?>
-								</div>
-								<div class="span2">
-							    <?php } else { ?>
-								<div class="span4">
-							    <?php } 
-							    $desc = get_post_meta( $topevent->ID, 'topevent_description', true );
-							    if (strlen(trim($desc))<3) {
-								$desc =  fau_custom_excerpt($topevent->ID,$options['default_topevent_excerpt_length']);
-							    }  ?>   
-								    <div class="topevent-description"><?php echo $desc; ?></div>
-								   
-								</div>			
-							</div>
-						</div>
-					<?php endforeach; ?>
-					
-					<?php get_template_part('sidebar'); ?>
+					<?php
+					if ($options['start_topevents_active']) {
+					    get_template_part('sidebar', 'events'); 	
+					}				
+					get_template_part('sidebar');
+					?>
 				</div>
 			</div> <!-- /row -->
 			<?php  
@@ -280,6 +264,8 @@ global $options;
 		</div> <!-- /container -->
 		<?php get_template_part('footer', 'social'); ?>	
 		
-	</section> <!-- /content -->
+	</div> <!-- /content -->
 
-<?php get_footer(); ?>
+<?php 
+get_footer(); 
+

@@ -67,13 +67,19 @@ p {
 		padding: 4px 0 22px 0;
 	}
 	&.hinweis {
-	    font-size: 24px;
-	    line-height: 28px;
 	    margin: 0;
 	    padding: 22px 0;
 	    color: $colorPrimary;
+	    font-weight: bold;
+	    &:before {
+			@extend .fa;
+			@extend .fa-2x;
+			@extend .fa-exclamation-circle;
+			padding-right: 8px;
+			font-weight: normal;
+			vertical-align: -4px;
+		}
 	}
-	
 	&.attention {
 		display: block;
 		color: $colorNotice;
@@ -85,6 +91,70 @@ p {
 			@extend .fa;
 			@extend .fa-2x;
 			@extend .fa-exclamation-circle;
+			padding-right: 8px;
+			font-weight: normal;
+			vertical-align: -4px;
+		}
+	}
+	&.baustelle {
+		display: block;
+		color: $colorText;
+		padding: 10px 0;
+		margin: 20px 0;
+		font-weight: bold;
+		
+		&:before {
+			@extend .fa;
+			@extend .fa-2x;
+			@extend .fa-cogs;
+			padding-right: 8px;
+			font-weight: normal;
+			vertical-align: -4px;
+		}
+	}
+	&.question {
+		display: block;
+		color: $colorText;
+		padding: 10px 0;
+		margin: 20px 0;
+		
+		&:before {
+			color: orange;
+			@extend .fa;
+			@extend .fa-2x;
+			@extend .fa-question-circle;
+			padding-right: 8px;
+			font-weight: normal;
+			vertical-align: -4px;
+		}
+	}
+	&.minus {
+		display: block;
+		color: $colorText;
+		padding: 10px 0;
+		margin: 20px 0;
+		
+		&:before {
+			color: red;
+			@extend .fa;
+			@extend .fa-2x;
+			@extend .fa-minus-circle;
+			padding-right: 8px;
+			font-weight: normal;
+			vertical-align: -4px;
+		}
+	}
+	&.plus {
+		display: block;
+		color: $colorText;
+		padding: 10px 0;
+		margin: 20px 0;
+		
+		&:before {
+			color: green;
+			@extend .fa;
+			@extend .fa-2x;
+			@extend .fa-plus-circle;
 			padding-right: 8px;
 			font-weight: normal;
 			vertical-align: -4px;
@@ -112,11 +182,11 @@ h2 {
 	line-height: 28px;
 	margin: 0;
 	padding: 22px 0;
+	font-weight: bold;
 	
 	&.small {
 		font-size: 18px;
 		line-height: 22px;
-		font-weight: bold;
 		
 		.widget & {
 			padding-bottom: 11px;
@@ -134,7 +204,6 @@ h2 {
 	&.subtitle {
 		font-size: 18px;
 		line-height: 22px;
-		font-weight: bold;
 		padding: 0 0 22px 0;		
 	}
 	
@@ -166,6 +235,8 @@ h3 {
 		font-size: 16px;
 		font-weight: normal;
 	}
+
+	
 }
 
 h4 {
@@ -199,27 +270,26 @@ h6 em {
 }
 
 li {
-	background: url('../img/list-arrow.png') no-repeat left 4px;
-	padding: 0 0 7px 20px;
+	padding: 3px 0 4px 4px;
 	font-size: 15px;
 	line-height: 22px;
 	color: $colorText;
 }
 
+.sidebar-inline li {
+    	background: url('../img/list-arrow.png') no-repeat left 4px;
+	padding: 3px 0 4px 20px;
+}
+
 ul {
-	@include no-list;
-	list-style-position: inside;
-	
 	li {
-		background: url('../img/li-circle.png') no-repeat left 7px;
-	}
-	
-	ul {
-		margin-left: 20px;
-		
-		ol li {
-			padding-left: 0;
+	    list-style-type: circle;	    
+	    ul li {
+		list-style-type: disc;		
+		ul li {
+		   list-style-type: square;
 		}
+	    }
 	}
 }
 
@@ -227,10 +297,24 @@ ol {
 	li {
 		padding-left: 0;
 		list-style: decimal;
-	}
-	
-	ul li {
-		padding-left: 20px;
+		ol li {
+		    list-style: lower-latin;
+		    
+		    ol li {
+		     list-style: upper-roman;
+		     
+		      ol li {
+			list-style: lower-greek;
+			}
+		     
+		    }
+		    ul li {
+			list-style-type: circle;
+		    }
+		}
+		ul li {
+		     list-style-type: circle;	    
+		}
 	}
 }
 
@@ -265,7 +349,7 @@ hr:after {
 	left: 50px;
 	right: 50px;
 	z-index: 9;
-	@include box-shadow(0 0 30px $colorLight);
+	@include box-shadow(0 0 30px $colorStandardHellgrau);
 	@include border-radius(100px / 10px);
 }
 
@@ -283,8 +367,8 @@ blockquote {
 table {
 	border: 0;
 	background: transparent;
-	border-top: 1px solid $colorLight;
-	border-bottom: 1px solid $colorLight;
+	border-top: 1px solid $colorContentBorders;
+	border-bottom: 1px solid $colorContentBorders;
 	margin: 5px 0 20px 0;
 	width: 100%;
 	
@@ -300,11 +384,11 @@ table {
 	}
 	
 	th {
-		color: $colorLightContrast;
-		background: $colorLight;
+		color: $colorText;
+		background: $colorContentBorders;
 		font-weight: bold;
-		border-top: 1px solid $colorLight;
-		border-bottom: 1px solid $colorLight;
+		border-top: 1px solid $colorContentBorders;
+		border-bottom: 1px solid $colorContentBorders;
 		text-align: left;
 		
 		#studienangebot-result & {
@@ -319,13 +403,13 @@ table {
 	}
 	
 	tr {
-		border-left: 1px solid $colorLightest;
-		border-right: 1px solid $colorLightest;
+		border-left: 1px solid $colorStandardHellgrau;
+		border-right: 1px solid $colorStandardHellgrau;
 	}
 	
 	tr:nth-child(odd) td {
 		color:  $colorLightestContrast;
-		background: $colorLightest;
+		background: $colorStandardHellgrau;
 		
 		ul {
 		    li {
