@@ -888,6 +888,16 @@ function fau_get_toplinks() {
 	$options['fauhome_useimg'] = true;
     }
     
+    // clemens.schulze.wettendorf@fau.de:
+    // kurze Pruefung ob es sich um einen englischsprachigen Auftritt handelt (falls ja wird Text & URL angepasst)
+    if (get_locale() == 'en_US'){
+    	$options['fauhome_url'] = $options['fauhome_url_en'];
+    	$options['fauhome_linktext'] = $options['fauhome_linktext_en'];
+
+    	$options['facultyhome_url'] = $options['facultyhome_url_en'];
+    	$options['facultyhome_title'] = $options['facultyhome_title_en'];
+    }
+
     
     $thislist = '';
     if (($options['default_display_fauhomelink']==true) && isset($options['fauhome_url'])) {

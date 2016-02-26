@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * Default Constants and values for FAU THeme
+ * Default Constants and values for FAU Theme
  */
 $defaultoptions = array(
     'js-version'		    => '1.0',
@@ -134,15 +134,20 @@ $defaultoptions = array(
     
     'default_display_fauhomelink'	=> true,
     'fauhome_url'			=> 'https://www.fau.de',
+    'fauhome_url_en'           => 'https://www.fau.eu',
     'fauhome_imgsrc'			=> get_template_directory_uri().'/img/logo-fau-37x16.png',
     'fauhome_title'			=> __('Friedrich-Alexander-Universität (FAU)','fau'),
     'fauhome_linktext'			=> __('Zur FAU Seite','fau'),
+    'fauhome_linktext_en'          => __('To the FAU website','fau'),
     'fauhome_useimg'			=> true,
-    
+
     
     'default_display_facultyhomelink'   => true,
     'facultyhome_url'			=> 'https://rw.fau.de',
+    'facultyhome_url_en'           => 'https://rw.fau.eu',
     'facultyhome_title'			=> __('Rechts- und Wirtschaftswissenschaftliche Fakultät','fau'),
+    'facultyhome_title_en'         => __('Faculty of Business, Economics, and Law','fau'),
+
        
     
     'socialmedia'		    => 1,
