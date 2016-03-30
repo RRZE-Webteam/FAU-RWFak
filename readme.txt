@@ -1,4 +1,4 @@
-FAU-Philfak 
+FAU-RWFak 
 Wordpress-Theme für die Rechts- und Wirtschaftswissenschaftliche Fakultät 
 der Friedrich-Alexander-Universität (FAU)
 ====================================================
@@ -8,7 +8,7 @@ der Friedrich-Alexander-Universität (FAU)
 DOWNLOADS
 
     GITHub-Repo:
-        https://github.com/RRZE-Webteam/FAU-Medfak
+        https://github.com/RRZE-Webteam/FAU-RWFak
     
     
 
@@ -55,7 +55,7 @@ OPTIONAL PLUGINS
 FEEDBACK & BUGS
 
 Please use github for submitting new features or bugs:
- https://github.com/RRZE-Webteam/FAU-Philfak/issues
+ https://github.com/RRZE-Webteam/FAU-RWFak/issues
 
 or send an email to 
  webmaster@rrze.fau.de
