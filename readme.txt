@@ -1,4 +1,4 @@
-FAU-RW
+FAU-RWFak
 Wordpress-Theme für die Rechts- und Wirtschaftswissenschaftliche Fakultät der
 Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)
 ====================================================
