@@ -15,12 +15,15 @@ Main CSS File for Wordpress Theme FAU
 @import "includes/font-awesome";
 // @import "includes/font-justvector";
 @import "includes/helpers";
-
+ 
 // Import Main Stylings
 @import "base-atoms";
 @import "base-organisms";
 @import "base-molecules";
 @import "base-overwrites";
+
+// Plugin FAU_Person
+@import "plugin-fau_person";
 
 // Import Plugin Stylings
 @import "plugin-flexslider";
