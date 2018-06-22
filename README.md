@@ -1,6 +1,6 @@
-# FAU-Einrichtungen
+# FAU-RWFak
 
-Wordpress-Theme für die rechts- und wirtschaftswissenschaftliche Fakultät der Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)
+Wordpress-Theme für die Rechts- und Wirtschaftswissenschaftliche Fakultät der Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)
 
 Eine Dokumentation kann unter https://wordpress.rrze.fau.de  gefunden werden.
 
