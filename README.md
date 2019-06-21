@@ -1,6 +1,6 @@
 # FAU-RWFak
 
-Wordpress-Theme für die Rechts- und Wirtschaftswissenschaftliche Fakultät der Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)
+WordPress-Theme für die Rechts- und Wirtschaftswissenschaftliche Fakultät der Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)
 
 Eine Dokumentation kann unter https://wordpress.rrze.fau.de  gefunden werden.
 
@@ -61,9 +61,5 @@ dagegen im Unterverzeichnis ```/css``` abfelegt.
     Eingabequelle:  ```/css/sass/```  
     Ausgabeort:     ```/css```
 
-Mit Compiler-Option soll im prdokutiven Betrieb die erzeigte CSS-Datei kompimiert 
-sein. Außerdem sind Source-Map Dateien nicht benötigt. Die dafür notwendige 
-Compiler-Argumente sind daher ```--style compressed  --sourcemap=none```
-
-
- 
+Mit der Compiler-Option ```--style compressed``` soll im produktiven Betrieb die 
+erzeugte CSS-Datei komprimiert sein. Source-Map Dateien werden nicht benötigt. 
