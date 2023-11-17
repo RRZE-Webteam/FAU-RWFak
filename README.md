@@ -1,12 +1,16 @@
 # FAU-RWFak
 
+[![Release Version](https://img.shields.io/github/v/release/rrze-webteam/FAU-RWFak?label=Release+Version)](https://github.com/rrze-webteam/fau-RWFak/releases/) [![GitHub License](https://img.shields.io/github/license/rrze-webteam/fau-RWFak?label=Lizenz)](https://github.com/RRZE-Webteam/FAU-RWFak/blob/master/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/rrze-webteam/fau-einrichtungen)](https://github.com/RRZE-Webteam/FAU-Einrichtungen/issues)
+
 Wordpress-Theme für die Rechts- und Wirtschaftswissenschaftliche der Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)
 
+## Screenshot
+
+![Beispiel Theme Screenshot](screenshot.png)
 
 ## Download 
 
-GITHub-Repo: https://github.com/RRZE-Webteam/FAU-RWFak
-
+GitHub-Repo: https://github.com/RRZE-Webteam/FAU-RWFak
 
 ## Autor 
 RRZE-Webteam , http://www.rrze.fau.de
